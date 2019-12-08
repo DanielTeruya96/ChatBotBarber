@@ -95,7 +95,9 @@ def getSemana(palavra):
         "sexta": 6, "Sexta": 6, "sex": 6, "Sex": 6,
         "sábado": 7, "sabado": 7, "Sábado": 7, "Sabado": 7, "sab": 7, "Sab": 7
     }
-    return semana.get(palavra)
+    if(semana.get(palavra) is None):
+        return None
+    return semana.get(palavra)-2
 
 def getPeriodo(palavra):
     periodo = {
@@ -104,3 +106,79 @@ def getPeriodo(palavra):
         "noite": 3, "Noite": 3
     }
     return periodo.get(palavra)
+
+def descobreDia(frase):
+    palavras = frase.split(" ")
+    for palavra in palavras:
+        numero = getDia(palavra)
+        if numero is not None:
+            return numero
+
+    return None
+
+
+def possuiPeriodo(frase):
+    palavras = frase.split(" ")
+    for palavra in palavras:
+        periodo = getPeriodo(palavra)
+        if periodo is not None:
+            return True
+
+    return False
+
+
+def getListaPeriodo(frase):
+    palavras = frase.split(" ")
+    listaPeriodos = list()
+    for palavra in palavras:
+        periodo = getPeriodo(palavra)
+        if periodo is not None:
+            listaPeriodos.append(periodo)
+
+
+    return listaPeriodos
+
+
+def temHora(frase):
+    palavras = frase.split(" ")
+    for palavra in palavras:
+        if getHora(palavra) is not None:
+            return True
+
+    return False
+
+
+    return None
+
+#retorna uma lista de horas
+def getHoras(frase):
+
+    lista = list()
+    for palavra in frase.split(" "):
+        hora = getHora(palavra)
+        if hora is not None:
+            lista.append(hora)
+
+
+    return lista
+
+
+def contemDiaSemana(frase):
+    for palavra in frase.split(" "):
+        if getSemana(palavra) is not None:
+            return True
+
+    return False
+
+
+
+def getDiferencaSemana(frase,hoje):
+    semana = 0
+    for palavra in frase.split(" "):
+        if getSemana(palavra) is not None:
+            semana = getSemana(palavra)
+    if semana < hoje:
+        semana = semana+7
+
+
+    return semana-hoje
